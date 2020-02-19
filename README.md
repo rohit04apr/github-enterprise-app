@@ -3,7 +3,16 @@
 * Integrated with Okta
 * Integrated with Github
 
-Add keys accordingly in settings.py
+
+### Add modules on your python virtual environemnt.
+```
+pip3 install requests
+pip3 install django-pipeline
+pip3 install django
+pip3 install social-auth-app-django
+```
+
+###Add keys accordingly in settings.py
 
 ```
 SOCIAL_AUTH_GITHUB_ENTERPRISE_URL = '******'
