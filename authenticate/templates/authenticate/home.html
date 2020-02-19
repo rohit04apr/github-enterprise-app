@@ -1,0 +1,64 @@
+{% extends 'authenticate/base.html' %}
+{% block content %}
+
+
+{% if user.is_authenticated %}
+
+<div class="alert alert-warning alert-dismissable" role="alert">
+  <button class="close" data-dismiss="alert">
+    <small><sup>x</sup></small>
+  </button>
+<p> Please click to unsuspend user : {{ user.username }} </p>
+</div>
+
+<form action="{% url 'unlock' %}"  method="POST" onsubmit="return disableButton(this);">
+    {% csrf_token %}
+ <input type="hidden" id="username" name="username" value="{{ user.username }}">
+ <button class="btn btn-outline-secondary" type="submit" id="myButton">Unlock</button>
+ </br></br>
+</form>
+
+{% else %}
+
+<div class="alert alert-warning alert-dismissable" role="alert">
+  <button class="close" data-dismiss="alert">
+    <small><sup>x</sup></small>
+  </button>
+<p> Please login to GitHub to Unlock user.. </p>
+</div>
+
+{% endif %}
+
+{% if output %}
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-8"><u>Unsuspend Command Ran Sucessfully With Following Output:</u></h1>
+    <p class="lead">{{ output }}</p>
+  </div>
+</div>
+
+{% endif %}
+
+{% if errors %}
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-8"><u>Unsuspend Command Ran Sucessfully With Following Output:</u></h1>
+    <p class="lead">{{ errors }}</p>
+  </div>
+</div>
+{% endif %}
+
+<script type="text/javascript">
+
+  function disableButton(form)
+  {
+    form.myButton.disabled = true;
+
+    var btn = document.getElementById("myButton");
+    btn.innerHTML = 'Please wait.....';
+    return true;
+  }
+
+</script>
+
+{% endblock %}
